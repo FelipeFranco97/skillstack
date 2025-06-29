@@ -1,18 +1,23 @@
 const express = require('express')
 const cors = require('cors')
-const authRoutes = require('./routes/auth')
+const connectDB = require('./db')
+require('dotenv').config()
 
 const app = express()
-const PORT = 4000
 
+// Middlewares
 app.use(cors())
 app.use(express.json())
+
+// Conexión a la base de datos
+connectDB()
+
+// Rutas
+const authRoutes = require('./routes/auth')
 app.use('/api/auth', authRoutes)
 
-app.get('/', (req, res) => {
-    res.send('API is running!')
-})
-
+// Iniciar servidor
+const PORT = 4000
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
 })
