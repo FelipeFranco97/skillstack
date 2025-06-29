@@ -16,6 +16,9 @@ connectDB()
 const authRoutes = require('./routes/auth')
 app.use('/api/auth', authRoutes)
 
+const skillsRoutes = require('./routes/skills')
+app.use('/api/skills', skillsRoutes)
+
 // Iniciar servidor
 const PORT = 4000
 app.listen(PORT, () => {

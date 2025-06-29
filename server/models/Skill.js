@@ -10,8 +10,9 @@ const skillSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        userId: {
-            type: String,
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
             required: true,
         }
     },
