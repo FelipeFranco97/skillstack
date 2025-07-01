@@ -1,0 +1,23 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+      
+      - name: Instalar dependencias del frontend
+        run: npm install
+        working-directory: ./client
+      
+      - name: Correr tests
+        run: npm test -- --watchAll=false
+        working-directory: ./client
