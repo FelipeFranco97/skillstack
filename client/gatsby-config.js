@@ -8,6 +8,12 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
+   flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+    FAST_DEV: true,
+    DEV_SSR: false,
+    SSR: false,
+  },
   siteMetadata: {
     title: `Gatsby Default Starter`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
