@@ -4,6 +4,9 @@ import { loginSuccess } from "../redux/authSlice"
 import { navigate } from "gatsby"
 
 const LoginPage = () => {
+
+  const API_URL = process.env.GATSBY_API_URL || "http://localhost:4000"
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -15,7 +18,7 @@ const LoginPage = () => {
     setError("")
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/login", {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { navigate } from "gatsby"
 
 const RegisterPage = () => {
+  const API_URL = process.env.GATSBY_API_URL || "http://localhost:4000"
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -11,7 +13,7 @@ const RegisterPage = () => {
     setError("")
 
     try {
-      const res = await fetch("http://localhost:4000/api/auth/register", {
+      const res = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

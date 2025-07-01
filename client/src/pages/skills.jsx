@@ -3,6 +3,9 @@ import { useSelector } from "react-redux"
 import { navigate } from "gatsby"
 
 const SkillsPage = () => {
+
+  const API_URL = process.env.GATSBY_API_URL || "http://localhost:4000"
+
   const token = useSelector(state => state.auth.token)
   const [skills, setSkills] = useState([])
   const [name, setName] = useState("")
@@ -21,7 +24,7 @@ const SkillsPage = () => {
       try {
         console.log("Token usado:", token)
 
-        const res = await fetch("http://localhost:4000/api/skills", {
+        const res = await fetch(`${API_URL}/api/skills`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,7 +45,7 @@ const SkillsPage = () => {
     setError("")
 
     try {
-      const res = await fetch("http://localhost:4000/api/skills", {
+      const res = await fetch(`${API_URL}/api/skills`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +71,7 @@ const SkillsPage = () => {
 
   const handleDelete = async id => {
     try {
-      const res = await fetch(`http://localhost:4000/api/skills/${id}`, {
+      const res = await fetch(`${API_URL}/api/skills/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -95,7 +98,7 @@ const SkillsPage = () => {
 
   const handleUpdate = async () => {
     try {
-      const res = await fetch(`http://localhost:4000/api/skills/${editId}`, {
+      const res = await fetch(`${API_URL}/api/skills/${editId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

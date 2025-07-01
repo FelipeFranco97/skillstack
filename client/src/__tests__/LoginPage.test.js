@@ -104,4 +104,32 @@ describe("LoginPage", () => {
       expect(screen.getByText(/credenciales inválidas/i)).toBeInTheDocument()
     })
   })
+
+  test("muestra error si hay problema de red", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {})
+
+    // 🧪 Simulamos que fetch lanza un error (como si no hubiera internet)
+    global.fetch = jest.fn(() => Promise.reject(new Error("Network error")))
+
+    render(
+      <Provider store={store}>
+        <LoginPage />
+      </Provider>
+    )
+
+    fireEvent.change(screen.getByPlaceholderText("Correo"), {
+      target: { value: "fallo@correo.com" },
+    })
+    fireEvent.change(screen.getByPlaceholderText("Contraseña"), {
+      target: { value: "error" },
+    })
+
+    fireEvent.click(screen.getByText("Iniciar sesión"))
+
+    await waitFor(() => {
+      expect(screen.getByText(/error de conexión/i)).toBeInTheDocument()
+      expect(mockDispatch).not.toHaveBeenCalled()
+      expect(gatsby.navigate).not.toHaveBeenCalled()
+    })
+  })
 })
